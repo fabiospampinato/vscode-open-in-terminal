@@ -1,0 +1,74 @@
+{
+  "name": "vscode-open-in-terminal",
+  "displayName": "Open in Terminal",
+  "description": "Adds a command for opening the current project in Terminal.",
+  "icon": "resources/logo-128x128.png",
+  "version": "1.0.1",
+  "license": "MIT",
+  "main": "out/src/extension.js",
+  "publisher": "fabiospampinato",
+  "activationEvents": [
+    "onCommand:openInTerminal.open"
+  ],
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Open in Terminal - Configuration",
+      "properties": {
+        "openInTerminal.app": {
+          "type": "string",
+          "description": "The name of your terminal app",
+          "default": "Terminal"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "openInTerminal.open",
+        "title": "Open in Terminal"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "tsc -p ./",
+    "publish": "vsce publish && npm publish",
+    "compile": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test"
+  },
+  "bugs": {
+    "url": "https://github.com/fabiospampinato/vscode-open-in-terminal/issues"
+  },
+  "author": {
+    "name": "Fabio Spampinato",
+    "email": "spampinabio@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fabiospampinato/vscode-open-in-terminal.git"
+  },
+  "engines": {
+    "vscode": "^1.10.0"
+  },
+  "keywords": [
+    "vscode",
+    "vsc",
+    "extension",
+    "open in",
+    "terminal"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "dependencies": {
+    "absolute": "0.0.1",
+    "lodash": "^4.17.4",
+    "open": "0.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^6.0.40",
+    "tslint": "^4.4.2",
+    "typescript": "~2.2.0",
+    "vscode": "^1.1.4"
+  }
+}
