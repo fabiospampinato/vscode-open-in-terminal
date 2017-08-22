@@ -9,9 +9,7 @@ const Config = {
 
   get ( extension = 'openInTerminal' ) {
 
-    const config = vscode.workspace.getConfiguration ().get ( extension );
-
-    return config as any;
+    return vscode.workspace.getConfiguration ().get ( extension ) as any;
 
   }
 

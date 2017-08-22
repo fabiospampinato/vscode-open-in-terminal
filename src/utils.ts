@@ -25,6 +25,12 @@ const Utils = {
 
     return Commands;
 
+  },
+
+  delay ( ms ) {
+
+    return new Promise ( resolve => setTimeout ( resolve, ms ) );
+
   }
 
 };

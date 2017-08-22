@@ -10,7 +10,7 @@ import Utils from './utils';
 
 /* COMMANDS */
 
-function open () {
+async function open ( integrated = false ) {
 
   const {activeTextEditor} = vscode.window,
         editorPath = activeTextEditor ? activeTextEditor.document.fileName : undefined,
@@ -18,12 +18,33 @@ function open () {
 
   if ( !folderPath ) return vscode.window.showErrorMessage ( 'You have to open a project or a file before opening it in Terminal' );
 
-  const config = Config.get ();
+  if ( integrated ) {
 
-  openPath ( folderPath, config.app );
+    const term = vscode.window.createTerminal ( 'Terminal' );
+
+    await term.processId;
+    await Utils.delay ( 200 );
+
+    term.sendText ( `cd ${folderPath}`, true );
+
+    term.show ( false );
+
+  } else {
+
+    const config = Config.get ();
+
+    openPath ( folderPath, config.app );
+
+  }
+
+}
+
+function openIntegrated () {
+
+  return open ( true );
 
 }
 
 /* EXPORT */
 
-export {open};
+export {open, openIntegrated};
