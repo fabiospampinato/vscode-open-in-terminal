@@ -18,13 +18,14 @@ async function open ( integrated = false, workspaceRootFolder = false ) {
   let folderPath;
   if ( editorPath ) {
     if ( workspaceRootFolder ) {
-      // VSCode vscode.d.ts does not define prop workspaceFolders yet
+      // VSCode vscode.d.ts does define prop workspaceFolders nut complains with
+      // error: [ts] Property 'workspaceFolders' does not exist on type 'typeof workspace'.
       // const workspaceFolder = vscode.workspace.workspaceFolders.find(f => editorPath.match(`${path.sep}${f.name}${path.sep}?`));
       const workspaceFolder = (vscode.workspace as any).workspaceFolders.find(f => editorPath.match(`${path.sep}${f.name}${path.sep}?`));
       folderPath = workspaceFolder && workspaceFolder.uri.path;
     }
 
-    // fallback to file base editorPath
+    // fallback to file's base editorPath
     folderPath = folderPath || (absolute(editorPath) ? path.dirname(editorPath) : vscode.workspace.rootPath);
   }
 
