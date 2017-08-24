@@ -30,6 +30,14 @@
       {
         "command": "openInTerminal.openIntegrated",
         "title": "Open in Integrated Terminal"
+      },
+      {
+        "command": "openInTerminal.openWorkspaceRoot",
+        "title": "Open Workspace Root in Terminal"
+      },
+      {
+        "command": "openInTerminal.openWorkspaceRootIntegrated",
+        "title": "Open Workspace Root in Integrated Terminal"
       }
     ]
   },
