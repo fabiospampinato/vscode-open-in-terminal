@@ -10,11 +10,13 @@ import Utils from './utils';
 
 /* COMMANDS */
 
-async function open ( integrated = false ) {
+async function open ( integrated = false, root = false ) {
 
   const {activeTextEditor} = vscode.window,
+        {rootPath} = vscode.workspace,
         editorPath = activeTextEditor ? activeTextEditor.document.fileName : undefined,
-        folderPath = editorPath && absolute ( editorPath ) ? path.dirname ( editorPath ) : vscode.workspace.rootPath;
+        parentPath = editorPath && absolute ( editorPath ) && path.dirname ( editorPath ),
+        folderPath = root ? rootPath : parentPath || rootPath;
 
   if ( !folderPath ) return vscode.window.showErrorMessage ( 'You have to open a project or a file before opening it in Terminal' );
 
@@ -45,6 +47,18 @@ function openIntegrated () {
 
 }
 
+function openRoot () {
+
+  return open ( false, true );
+
+}
+
+function openRootIntegrated () {
+
+  return open ( true, true );
+
+}
+
 /* EXPORT */
 
-export {open, openIntegrated};
+export {open, openIntegrated, openRoot, openRootIntegrated};

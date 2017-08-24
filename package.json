@@ -1,9 +1,9 @@
 {
   "name": "vscode-open-in-terminal",
   "displayName": "Open in Terminal",
-  "description": "Adds a command for opening the current project in Terminal.",
+  "description": "Adds a few commands for opening the current project in Terminal.",
   "icon": "resources/logo-128x128.png",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "MIT",
   "main": "out/src/extension.js",
   "publisher": "fabiospampinato",
@@ -30,6 +30,14 @@
       {
         "command": "openInTerminal.openIntegrated",
         "title": "Open in Integrated Terminal"
+      },
+      {
+        "command": "openInTerminal.openRoot",
+        "title": "Open Root in Terminal"
+      },
+      {
+        "command": "openInTerminal.openRootIntegrated",
+        "title": "Open Root in Integrated Terminal"
       }
     ]
   },
