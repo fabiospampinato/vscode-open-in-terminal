@@ -10,11 +10,23 @@ import Utils from './utils';
 
 /* COMMANDS */
 
-async function open ( integrated = false ) {
+async function open ( integrated = false, workspaceRootFolder = false ) {
 
   const {activeTextEditor} = vscode.window,
-        editorPath = activeTextEditor ? activeTextEditor.document.fileName : undefined,
-        folderPath = editorPath && absolute ( editorPath ) ? path.dirname ( editorPath ) : vscode.workspace.rootPath;
+        editorPath = activeTextEditor ? activeTextEditor.document.fileName : undefined;
+
+  let folderPath;
+  if ( editorPath ) {
+    if ( workspaceRootFolder ) {
+      // VSCode vscode.d.ts does not define prop workspaceFolders yet
+      // const workspaceFolder = vscode.workspace.workspaceFolders.find(f => editorPath.match(`${path.sep}${f.name}${path.sep}?`));
+      const workspaceFolder = (vscode.workspace as any).workspaceFolders.find(f => editorPath.match(`${path.sep}${f.name}${path.sep}?`));
+      folderPath = workspaceFolder && workspaceFolder.uri.path;
+    }
+
+    // fallback to file base editorPath
+    folderPath = folderPath || (absolute(editorPath) ? path.dirname(editorPath) : vscode.workspace.rootPath);
+  }
 
   if ( !folderPath ) return vscode.window.showErrorMessage ( 'You have to open a project or a file before opening it in Terminal' );
 
@@ -45,6 +57,18 @@ function openIntegrated () {
 
 }
 
+function openWorkspaceRoot () {
+
+  return open ( false, true );
+
+}
+
+function openWorkspaceRootIntegrated () {
+
+  return open ( true, true );
+
+}
+
 /* EXPORT */
 
-export {open, openIntegrated};
+export {open, openIntegrated, openWorkspaceRoot, openWorkspaceRootIntegrated};
