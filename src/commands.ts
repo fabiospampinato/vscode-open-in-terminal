@@ -1,9 +1,7 @@
 
 /* IMPORT */
 
-import * as absolute from 'absolute';
 import * as openPath from 'open';
-import * as path from 'path';
 import * as vscode from 'vscode';
 import Config from './config';
 import Utils from './utils';
@@ -13,10 +11,8 @@ import Utils from './utils';
 async function open ( integrated = false, root = false ) {
 
   const {activeTextEditor} = vscode.window,
-        {rootPath} = vscode.workspace,
         editorPath = activeTextEditor ? activeTextEditor.document.fileName : undefined,
-        parentPath = editorPath && absolute ( editorPath ) && path.dirname ( editorPath ),
-        folderPath = root ? rootPath : parentPath || rootPath;
+        folderPath = Utils.folder.getWrapperPath ( editorPath, root );
 
   if ( !folderPath ) return vscode.window.showErrorMessage ( 'You have to open a project or a file before opening it in Terminal' );
 

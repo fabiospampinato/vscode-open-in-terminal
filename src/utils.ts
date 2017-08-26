@@ -2,6 +2,8 @@
 /* IMPORT */
 
 import * as _ from 'lodash';
+import * as absolute from 'absolute';
+import * as path from 'path';
 import * as vscode from 'vscode';
 import * as Commands from './commands';
 
@@ -30,6 +32,42 @@ const Utils = {
   delay ( ms ) {
 
     return new Promise ( resolve => setTimeout ( resolve, ms ) );
+
+  },
+
+  folder: {
+
+    getParentPath ( basePath? ) {
+
+      return basePath && absolute ( basePath ) && path.dirname ( basePath );
+
+    },
+
+    getRootPath ( basePath? ) {
+
+      const {workspaceFolders} = vscode.workspace;
+
+      if ( !workspaceFolders ) return;
+
+      const firstRootPath = workspaceFolders[0].uri.path;
+
+      if ( !basePath || !absolute ( basePath ) ) return firstRootPath;
+
+      const rootPaths = workspaceFolders.map ( folder => folder.uri.path ),
+            sortedRootPaths = _.sortBy ( rootPaths, [path => path.length] ).reverse (); // In order to get the closest root
+
+      return sortedRootPaths.find ( rootPath => basePath.startsWith ( rootPath ) );
+
+    },
+
+    getWrapperPath ( basePath, root? ) {
+
+      const parentPath = () => Utils.folder.getParentPath ( basePath ),
+            rootPath = () => Utils.folder.getRootPath ( basePath );
+
+      return root ? rootPath () : parentPath () || rootPath ();
+
+    }
 
   }
 
