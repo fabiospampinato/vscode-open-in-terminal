@@ -6,7 +6,7 @@
 
 Adds a few commands for opening the current project in Terminal.
 
-It can be configured to use whichever terminal app you use.
+It can be configured to use whichever terminal app you want.
 
 ## Install
 
@@ -21,10 +21,10 @@ ext install vscode-open-in-terminal
 It adds 4 commands to the command palette:
 
 ```js
-'Open in Terminal' // Opens the current folder in Terminal
-'Open in Integrated Terminal' // Opens the current folder in the integrated terminal
-'Open Root in Terminal' // Opens the current project in Terminal
-'Open Root in Integrated Terminal' // Opens the current project in the integrated terminal
+'Open in Terminal' // Open the current folder in the terminal
+'Open Root in Terminal' // Open the current project in the terminal
+'Open in Integrated Terminal' // Open the current folder in the integrated terminal
+'Open Root in Integrated Terminal' // Open the current project in the integrated terminal
 ```
 
 ## Settings
