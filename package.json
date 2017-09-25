@@ -3,7 +3,7 @@
   "displayName": "Open in Terminal",
   "description": "Adds a few commands for opening the current project in Terminal.",
   "icon": "resources/logo-128x128.png",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "license": "MIT",
   "main": "out/src/extension.js",
   "publisher": "fabiospampinato",
