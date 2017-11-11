@@ -11,7 +11,7 @@ import Utils from './utils';
 async function open ( integrated = false, root = false ) {
 
   const {activeTextEditor} = vscode.window,
-        editorPath = activeTextEditor ? activeTextEditor.document.fileName : undefined,
+        editorPath = activeTextEditor ? activeTextEditor.document.uri.fsPath : undefined,
         folderPath = Utils.folder.getWrapperPath ( editorPath, root );
 
   if ( !folderPath ) return vscode.window.showErrorMessage ( 'You have to open a project or a file before opening it in Terminal' );
