@@ -1,4 +1,4 @@
-# VSC Open in Terminal
+# Open in Terminal
 
 <p align="center">
 	<img src="https://raw.githubusercontent.com/fabiospampinato/vscode-open-in-terminal/master/resources/logo-128x128.png" alt="Logo">
@@ -10,10 +10,10 @@ It can be configured to use whichever terminal app you want.
 
 ## Install
 
-Run the following in the command palette:
+Follow the instructions in the [Marketplace](https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-open-in-terminal), or run the following in the command palette:
 
 ```shell
-ext install vscode-open-in-terminal
+ext install fabiospampinato.vscode-open-in-terminal
 ```
 
 ## Usage
