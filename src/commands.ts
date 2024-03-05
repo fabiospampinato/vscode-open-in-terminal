@@ -1,59 +1,57 @@
 
 /* IMPORT */
 
-import * as openPath from 'open';
-import * as vscode from 'vscode';
-import Config from './config';
-import Utils from './utils';
+import path from 'node:path';
+import openPath from 'open';
+import vscode from 'vscode';
+import {getConfig, getProjectRootPath} from 'vscode-extras';
 
-/* COMMANDS */
+/* MAIN */
 
-async function open ( integrated = false, root = false ) {
+const open = async ( integrated: boolean = false, root: boolean = false ): Promise<void> => {
 
-  const {activeTextEditor} = vscode.window,
-        editorPath = activeTextEditor ? activeTextEditor.document.uri.fsPath : undefined,
-        folderPath = Utils.folder.getWrapperPath ( editorPath, root );
+  const rootPath = getProjectRootPath ();
+  const filePath = vscode.window.activeTextEditor?.document.uri.fsPath;
+  const targetPath = root ? rootPath : ( filePath ? path.dirname ( filePath ) : rootPath );
 
-  if ( !folderPath ) return vscode.window.showErrorMessage ( 'You have to open a project or a file before opening it in Terminal' );
+  if ( !targetPath ) return void vscode.window.showErrorMessage ( 'You have to open a project or a file before opening it in Terminal' );
 
   if ( integrated ) {
 
-    const term = vscode.window.createTerminal ( 'Terminal' );
-
-    await term.processId;
-    await Utils.delay ( 200 );
-
-    term.sendText ( `cd ${folderPath}`, true );
+    const term = vscode.window.createTerminal ({
+      cwd: targetPath
+    });
 
     term.show ( false );
 
   } else {
 
-    const config = Config.get ();
+    const config = getConfig ( 'openInTerminal' );
+    const app = config?.app || 'Terminal';
 
-    openPath ( folderPath, config.app );
+    openPath ( targetPath, { app: { name: app } } );
 
   }
 
-}
+};
 
-function openIntegrated () {
+const openIntegrated = (): Promise<void> => {
 
-  return open ( true );
+  return open ( true, false );
 
-}
+};
 
-function openRoot () {
+const openRoot = (): Promise<void> => {
 
   return open ( false, true );
 
-}
+};
 
-function openRootIntegrated () {
+const openRootIntegrated = (): Promise<void> => {
 
   return open ( true, true );
 
-}
+};
 
 /* EXPORT */
 
