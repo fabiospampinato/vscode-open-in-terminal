@@ -4,14 +4,14 @@
 import path from 'node:path';
 import openPath from 'tiny-open';
 import vscode from 'vscode';
-import {getConfig, getProjectRootPath} from 'vscode-extras';
+import {getActiveFilePath, getConfig, getProjectRootPath} from 'vscode-extras';
 
 /* MAIN */
 
 const open = async ( integrated: boolean = false, root: boolean = false ): Promise<void> => {
 
   const rootPath = getProjectRootPath ();
-  const filePath = vscode.window.activeTextEditor?.document.uri.fsPath;
+  const filePath = getActiveFilePath ();
   const targetPath = root ? rootPath : ( filePath ? path.dirname ( filePath ) : rootPath );
 
   if ( !targetPath ) return void vscode.window.showErrorMessage ( 'You have to open a project or a file before opening it in Terminal' );
