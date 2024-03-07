@@ -1,3 +1,7 @@
+### Version 2.0.1
+- Replaced "open" with "tiny-open"
+- Updated some dependencies
+
 ### Version 2.0.0
 - Rewitten: more modern code, almost no third-party dependencies, 98% smaller bundle
 
