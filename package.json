@@ -65,8 +65,8 @@
     "terminal"
   ],
   "dependencies": {
-    "open": "^8.4.2",
     "vscode-extras": "^1.0.1"
+    "tiny-open": "^1.1.1",
   },
   "devDependencies": {
     "@types/node": "^20.11.24",

@@ -2,7 +2,7 @@
 /* IMPORT */
 
 import path from 'node:path';
-import openPath from 'open';
+import openPath from 'tiny-open';
 import vscode from 'vscode';
 import {getConfig, getProjectRootPath} from 'vscode-extras';
 
@@ -29,7 +29,7 @@ const open = async ( integrated: boolean = false, root: boolean = false ): Promi
     const config = getConfig ( 'openInTerminal' );
     const app = config?.app || 'Terminal';
 
-    openPath ( targetPath, { app: { name: app } } );
+    openPath ( targetPath, { app } );
 
   }
 
