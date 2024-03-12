@@ -2,50 +2,54 @@
 /* IMPORT */
 
 import vscode from 'vscode';
-import {alert, getActiveFolderPath, getConfig, getProjectRootPath, openInApp} from 'vscode-extras';
+import {alert, getActiveFolderPath, getProjectRootPath, openInApp} from 'vscode-extras';
+import {getOptions} from './utils';
 
 /* MAIN */
 
-const open = async ( integrated: boolean = false, root: boolean = false ): Promise<void> => {
+const openWith = async ( integrated: boolean, root: boolean ): Promise<void> => {
 
-  const targetPath = root ? getProjectRootPath () : getActiveFolderPath ();
+  const cwd = root ? getProjectRootPath () : getActiveFolderPath ();
 
-  if ( !targetPath ) return alert.error ( 'You have to open a project or a file before opening it in Terminal' );
+  if ( !cwd ) return alert.error ( 'You have to open a project or a file before opening it in the terminal' );
 
-  if ( integrated ) { // Opening in the integrated terminal
+  if ( integrated ) {
 
-    const term = vscode.window.createTerminal ({
-      cwd: targetPath
-    });
+    const term = vscode.window.createTerminal ({ cwd });
 
     term.show ( false );
 
-  } else { // Opening in an external terminal
+  } else {
 
-    const config = getConfig ( 'openInTerminal' );
-    const app = config?.app || 'Terminal';
+    const options = getOptions ();
 
-    openInApp ( targetPath, app );
+    openInApp ( cwd, options.app );
 
   }
 
 };
 
+const open = (): Promise<void> => {
+
+  return openWith ( false, false );
+
+};
+
 const openIntegrated = (): Promise<void> => {
 
-  return open ( true, false );
+  return openWith ( true, false );
 
 };
 
 const openRoot = (): Promise<void> => {
 
-  return open ( false, true );
+  return openWith ( false, true );
 
 };
 
 const openRootIntegrated = (): Promise<void> => {
 
-  return open ( true, true );
+  return openWith ( true, true );
 
 };
 
