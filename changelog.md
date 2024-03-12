@@ -1,3 +1,6 @@
+### Version 2.0.2
+- Minor internal improvements
+
 ### Version 2.0.1
 - Replaced "open" with "tiny-open"
 - Updated some dependencies
