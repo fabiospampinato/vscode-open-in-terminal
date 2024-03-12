@@ -5,7 +5,7 @@
   "repository": "github:fabiospampinato/vscode-open-in-terminal",
   "description": "Adds a few commands for opening the current project in Terminal.",
   "icon": "resources/logo-128x128.png",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "main": "dist/index.js",
   "contributes": {
     "configuration": {
