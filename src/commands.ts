@@ -1,22 +1,18 @@
 
 /* IMPORT */
 
-import path from 'node:path';
-import openPath from 'tiny-open';
 import vscode from 'vscode';
-import {getActiveFilePath, getConfig, getProjectRootPath} from 'vscode-extras';
+import {alert, getActiveFolderPath, getConfig, getProjectRootPath, openInApp} from 'vscode-extras';
 
 /* MAIN */
 
 const open = async ( integrated: boolean = false, root: boolean = false ): Promise<void> => {
 
-  const rootPath = getProjectRootPath ();
-  const filePath = getActiveFilePath ();
-  const targetPath = root ? rootPath : ( filePath ? path.dirname ( filePath ) : rootPath );
+  const targetPath = root ? getProjectRootPath () : getActiveFolderPath ();
 
-  if ( !targetPath ) return void vscode.window.showErrorMessage ( 'You have to open a project or a file before opening it in Terminal' );
+  if ( !targetPath ) return alert.error ( 'You have to open a project or a file before opening it in Terminal' );
 
-  if ( integrated ) {
+  if ( integrated ) { // Opening in the integrated terminal
 
     const term = vscode.window.createTerminal ({
       cwd: targetPath
@@ -24,12 +20,12 @@ const open = async ( integrated: boolean = false, root: boolean = false ): Promi
 
     term.show ( false );
 
-  } else {
+  } else { // Opening in an external terminal
 
     const config = getConfig ( 'openInTerminal' );
     const app = config?.app || 'Terminal';
 
-    openPath ( targetPath, { app } );
+    openInApp ( targetPath, app );
 
   }
 
