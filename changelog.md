@@ -9,7 +9,7 @@
 - Updated some dependencies
 
 ### Version 2.0.0
-- Rewitten: more modern code, almost no third-party dependencies, 98% smaller bundle
+- Rewritten: more modern code, almost no third-party dependencies, 98% smaller bundle
 
 ### Version 1.3.7
 - Readme: using hi-res logo
